@@ -4,25 +4,42 @@ from rest_framework.response import Response
 
 from .models import Status
 from .serializers import StatusSerializer
-from rest_framework import generics,mixins
+from rest_framework import generics,mixins,parsers
 
 # Create your views here.
-class StatusListCreateApiView(generics.ListAPIView,mixins.CreateModelMixin):
+##these 2 views(ListCreateAPIView,RetrieveUpdateDestroyAPIView) are use for small tasks & to make coding faster.
+# Under the hood they also use mixins. 
+# for customized API, views need to be built seperately
+class StatusListCreateApiView(generics.ListCreateAPIView):
     queryset=Status.objects.all()
     serializer_class=StatusSerializer
+    parser_classes= [parsers.MultiPartParser, parsers.FormParser ]
     
-    def post(self, request, *args, **kwargs):
-       return self.create(request, *args, **kwargs)
     
-class StatusDetailDeleteUpdateView(generics.RetrieveAPIView,mixins.DestroyModelMixin,mixins.UpdateModelMixin):
+class StatusDetailDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Status.objects.all()
     serializer_class=StatusSerializer
+    parser_classes= [parsers.MultiPartParser, parsers.FormParser ]
     
-    def delete(self,request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
     
-    def update(self,request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+
+
+# class StatusListCreateApiView(generics.ListAPIView,mixins.CreateModelMixin):
+#     queryset=Status.objects.all()
+#     serializer_class=StatusSerializer
+    
+#     def post(self, request, *args, **kwargs):
+#        return self.create(request, *args, **kwargs)
+    
+# class StatusDetailDeleteUpdateView(generics.RetrieveAPIView,mixins.DestroyModelMixin,mixins.UpdateModelMixin):
+#     queryset=Status.objects.all()
+#     serializer_class=StatusSerializer
+    
+#     def delete(self,request, *args, **kwargs):
+#         return self.destroy(request, *args, **kwargs)
+    
+#     def update(self,request, *args, **kwargs):
+#         return self.update(request, *args, **kwargs)
 
 
 # class StatusViewer(APIView):

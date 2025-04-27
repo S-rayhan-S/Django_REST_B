@@ -12,4 +12,4 @@ class StatusSerializer(serializers.ModelSerializer):
     # user=UserSerializer(many=False)
     class Meta:
         model = Status
-        fields = ['id', 'text', 'created_at', 'user',]
+        fields = ['id', 'text', 'created_at', 'image_link', 'user']

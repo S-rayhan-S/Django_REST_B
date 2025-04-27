@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'status',
     'api',
+    # django_cleanup should be placed last in INSTALLED_APPS.
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
