@@ -5,21 +5,30 @@ from rest_framework.response import Response
 from .models import Status
 from .serializers import StatusSerializer
 from rest_framework import generics,mixins,parsers
-
+from rest_framework import viewsets
 # Create your views here.
+
+class StatusViewSet(viewsets.ModelViewSet):
+    queryset=Status.objects.all()
+    serializer_class=StatusSerializer
+    parser_classes= [parsers.MultiPartParser, parsers.FormParser ]
+
+
+
 ##these 2 views(ListCreateAPIView,RetrieveUpdateDestroyAPIView) are use for small tasks & to make coding faster.
 # Under the hood they also use mixins. 
 # for customized API, views need to be built seperately
-class StatusListCreateApiView(generics.ListCreateAPIView):
-    queryset=Status.objects.all()
-    serializer_class=StatusSerializer
-    parser_classes= [parsers.MultiPartParser, parsers.FormParser ]
+
+# class StatusListCreateApiView(generics.ListCreateAPIView):
+#     queryset=Status.objects.all()
+#     serializer_class=StatusSerializer
+#     parser_classes= [parsers.MultiPartParser, parsers.FormParser ]
     
     
-class StatusDetailDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
-    queryset=Status.objects.all()
-    serializer_class=StatusSerializer
-    parser_classes= [parsers.MultiPartParser, parsers.FormParser ]
+# class StatusDetailDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset=Status.objects.all()
+#     serializer_class=StatusSerializer
+#     parser_classes= [parsers.MultiPartParser, parsers.FormParser ]
     
     
 
